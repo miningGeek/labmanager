@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+ {% block css_files %}
+        <link rel="stylesheet" href="{% static "project/project.css" %}">
+  {% endblock %}
+
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+<h2>Test List</h2>
+
+<div class="form_add">
+      <form action="" method="POST">
+        {% csrf_token %}
+
+        {{ form }}
+
+        <input id="form_submit" type="submit" value="Submit" class="btn btn-success">
+
+    </form>
+</div>
+<br/>
+<br/>
+
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Test Name</th>
+
+        <th scope="col"></th>
+        <th scope="col"></th>
+
+    </tr>
+    </thead>
+    <tbody>
+          {% if tests %}
+            {% for test in tests %}
+                <tr>
+                    <th scope="row">{{test.test}}</th>
+
+                    <td><a href="" class="btn btn-secondary">Edit - not set up</a></td>
+                    <td><a href="" class="btn btn-danger">Remove - not set up</a></td>
+
+                </tr>
+            {% endfor %}
+
+          {% endif %}
+
+
+    </tbody>
+
+</table>
+{% endblock %}

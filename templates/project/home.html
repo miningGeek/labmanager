@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+ {% block css_files %}
+        <link rel="stylesheet" href="{% static "project/project.css" %}">
+  {% endblock %}
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<h2>Add Project</h2>
+
+
+{% if submitted %}
+    Your project was submitted was successfully
+{% else %}
+
+    <form class="form_add" action="" method="POST">
+        {% csrf_token %}
+
+        {{ form }}
+        <input type="submit" value="Submit" name="submit_form" class="btn btn-success">
+
+    </form>
+{% endif %}
+<br/>
+<div class="table_sort">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="radio" value="Planning" name="project_status"/> Planning
+        <input type="radio" value="Ready" name="project_status"/> Ready
+        <input type="radio" value="In-progress" name="project_status"/> In-progress
+        <input type="radio" value="On-hold" name="project_status"/> On-hold
+        <input type="radio" value="Completed" name="project_status"/> Completed
+        <input type="radio" value="Cancelled" name="project_status"/> Cancelled
+        <input class="btn btn-secondary" type="submit" value="Filter" name="project_filter">
+    </form>
+</div>
+
+<table id="project_table" class="table table-bordered table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Project Number</th>
+        <th scope="col">Project Suffix</th>
+        <th scope="col">Project Owner</th>
+        <th scope="col">Project Priority</th>
+        <th scope="col">Date Created</th>
+        <th scope="col">Status</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+
+    </tr>
+    </thead>
+    <tbody>
+   {% if project_list %}
+    {% for project in project_list %}
+        <tr>
+            <th scope="row">{{project.project_number}}</th>
+            <td>{{project.project_suffix}}</td>
+            <td>{{project.project_owner}}</td>
+            <td>{{project.project_priority}}</td>
+            <td>{{project.project_creation_date}}</td>
+            <td>{{project.project_status}}</td>
+            <td><a href="{% url 'project_app:edit_project' project.id %}" class="btn btn-secondary">Edit</a></td>
+            <td><a href="{% url 'project_app:delete_project' project.id %}" class="btn btn-danger">Delete</a></td>
+
+        </tr>
+    {% endfor %}
+
+{% endif %}
+
+
+    </tbody>
+
+</table>
+
+{% endblock %}

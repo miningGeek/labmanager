@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+ {% block css_files %}
+        <link rel="stylesheet" href="{% static "project/project.css" %}">
+  {% endblock %}
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<h2>Tasks</h2>
+<a class="btn btn-primary btn-lg" href="{% url 'project_app:add_task' %}" role="button">Add Task</a>
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Project</th>
+        <th scope="col">Name</th>
+        <th scope="col">Suffix</th>
+        <th scope="col">Task Status</th>
+        <th scope="col">Description</th>
+        <th scope="col">Critical Path #</th>
+        <th scope="col">Test Group</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Technician</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+
+    </tr>
+    </thead>
+    <tbody>
+         {% if task_list %}
+    {% for task in task_list %}
+        <tr>
+            <th scope="row">{{task.project}}</th>
+            <td>{{task.task_name}}</td>
+            <td>{{task.task_suffix}}</td>
+            <td>{{task.task_status}}</td>
+            <td>{{task.task_description}}</td>
+            <td>{{task.task_critical_path}}</td>
+            <td>{{task.task_group}}</td>
+            <td>{{task.task_start_date}}</td>
+            <td>{{task.task_end_date}}</td>
+            <td>{{task.task_assigned_to}}</td>
+            <td><a href="" class="btn btn-secondary">Edit - nw</a></td>
+            <td><a href="{% url 'project_app:full_edit_task' task.id %}" class="btn btn-secondary">Coordinator Edit</a></td>
+            <td><a href="" class="btn btn-danger">Delete - nw</a></td>
+
+
+
+        </tr>
+    {% endfor %}
+
+{% endif %}
+
+    </tbody>
+
+</table>
+
+
+{% endblock %}

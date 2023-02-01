@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css_files %}
+        <link rel="stylesheet" href="{% static "project/project.css" %}">
+  {% endblock %}
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+<br/>
+<h2>Add Tech</h2>
+
+<br/>
+
+
+    <form class="form_add" action="" method="POST">
+        {% csrf_token %}
+
+        {{ form }}
+
+        <input id="form_submit" type="submit" value="Submit" class="btn btn-success">
+
+    </form>
+
+
+<br/>
+<br/>
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+
+
+
+    </tr>
+    </thead>
+    <tbody>
+{% if tech_list %}
+    {% for tech in tech_list %}
+        <tr>
+            <th scope="row">{{tech.first_name}}</th>
+            <td>{{tech.last_name}}</td>
+
+            <td><a href="#" class="btn btn-secondary">Edit - not set up</a></td>
+            <td><a href="" class="btn btn-secondary">Remove - not set up</a></td>
+
+        </tr>
+    {% endfor %}
+
+{% endif %}
+
+
+    </tbody>
+
+</table>
+
+{% endblock %}

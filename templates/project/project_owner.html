@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css_files %}
+        <link rel="stylesheet" href="{% static "project/project.css" %}">
+  {% endblock %}
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+<h2>Project Owners</h2>
+
+{% if submitted %}
+
+{% else %}
+
+    <form class="form_add" action="" method="POST">
+        {% csrf_token %}
+
+        {{ form }}
+
+        <input id="form_submit" type="submit" value="Submit" name="submit_form" class="btn btn-success">
+
+    </form>
+{% endif %}
+
+<br/>
+<div class="table_sort">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input class="radio_filter" type="radio" value="True" name="project_owner_status"/> Show Active
+        <input class="radio_filter" type="radio" value="False" name="project_owner_status"/> Show In-Active
+        <input class="radio_filter" type="radio" value="Default" name="project_owner_status"/> Show All
+
+        <input class="btn btn-secondary" type="submit" value="Filter" name="project_filter">
+    </form>
+</div>
+<br/>
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Email Address</th>
+        <th scope="col">Status</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+{% if project_owner_list %}
+    {% for owner in project_owner_list %}
+        <tr>
+            <th scope="row">{{owner.first_name}}</th>
+            <td>{{owner.last_name}}</td>
+            <td>{{owner.email_address}}</td>
+            <td>{{owner.status_active}}</td>
+            <td><a href="{% url 'project_app:edit_project_owner' owner.id %}" class="btn btn-secondary">Edit</a></td>
+            <td><a href="{% url 'project_app:delete_project_owner' owner.id %}" class="btn btn-danger ">Remove</a></td>
+
+        </tr>
+    {% endfor %}
+
+{% endif %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}
