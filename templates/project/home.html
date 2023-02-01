@@ -29,12 +29,14 @@
 <div class="table_sort">
     <form method="POST" action="">
         {% csrf_token %}
+        <input type="radio" value="Default" name="project_status"/> Default
         <input type="radio" value="Planning" name="project_status"/> Planning
         <input type="radio" value="Ready" name="project_status"/> Ready
         <input type="radio" value="In-progress" name="project_status"/> In-progress
         <input type="radio" value="On-hold" name="project_status"/> On-hold
         <input type="radio" value="Completed" name="project_status"/> Completed
         <input type="radio" value="Cancelled" name="project_status"/> Cancelled
+        <input type="radio" value="All" name="project_status"/> Show All
         <input class="btn btn-secondary" type="submit" value="Filter" name="project_filter">
     </form>
 </div>

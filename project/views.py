@@ -4,11 +4,12 @@ from django.http import HttpResponseRedirect
 from .models import Project, Task, ProjectOwners, Technician, TestList
 from .forms import AddProjectForm, AddProjectOwner, AddTestForm, AddTechnician, AddTaskForm, EditProjectForm,\
     FullEditTaskForm,EditProjectOwner
+from django.db.models import Q
 # Create your views here.
 
 
 def home(request):
-    project_list = Project.objects.all()
+    project_list = Project.objects.all().exclude(Q(project_status="Cancelled")| Q(project_status="Completed")).order_by('project_priority','project_number')
     import requests
     import json
 
@@ -20,7 +21,13 @@ def home(request):
                 return HttpResponseRedirect('project_home_page')
         if 'project_filter' in request.POST:
             project_status = request.POST.get('project_status')
-            project_list = Project.objects.filter(project_status=project_status)
+            if project_status == "Default":
+                project_list = Project.objects.all().exclude(
+                    Q(project_status="Cancelled") | Q(project_status="Completed")).order_by('project_priority','project_number')
+            elif project_status == "All":
+                project_list = Project.objects.all()
+            else:
+                project_list = Project.objects.filter(project_status=project_status)
 
             form = AddProjectForm
             context = {
