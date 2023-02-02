@@ -162,6 +162,12 @@ def technician_list(request):
     return render(request, 'project/technician_list.html', context)
 
 
+def delete_technician(request, technician_id):
+    tech = Technician.objects.get(pk=technician_id)
+    tech.delete()
+    return redirect('project_app:technician_list')
+
+
 def task_home_page(request):
     task_list = Task.objects.all().exclude(task_status='Completed').order_by('project', 'task_critical_path')
 

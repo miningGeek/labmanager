@@ -45,7 +45,6 @@
     <thead class="thead-dark">
     <tr>
         <th scope="col">Project Number</th>
-        <th scope="col">Project Suffix</th>
         <th scope="col">Project Owner</th>
         <th scope="col">Project Priority</th>
         <th scope="col">Date Created</th>
@@ -59,8 +58,7 @@
    {% if project_list %}
     {% for project in project_list %}
         <tr>
-            <th scope="row">{{project.project_number}}</th>
-            <td>{{project.project_suffix}}</td>
+            <th scope="row">{{project.project_concated_name}}</th>
             <td>{{project.project_owner}}</td>
             <td>{{project.project_priority}}</td>
             <td>{{project.project_creation_date}}</td>

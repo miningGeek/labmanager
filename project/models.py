@@ -41,8 +41,12 @@ class ProjectOwners(models.Model):
     status_active = models.BooleanField(default=True)
     project_owner_concat_name = models.CharField(max_length=100, blank=True)
 
+    def save(self, *args, **kwargs):
+        self.project_owner_concat_name = f"{self.first_name} {self.last_name}"
+        super().save(*args, **kwargs)
+
     def __str__(self):
-        return self.last_name
+        return self.project_owner_concat_name
 
 
 class Project(models.Model):
@@ -57,8 +61,12 @@ class Project(models.Model):
     project_modified_date = models.DateField(blank=True, null=True)
     project_concated_name = models.CharField(max_length=50, blank=True, null=True)
 
+    def save(self, *args, **kwargs):
+        self.project_concated_name = f"{self.project_number} {self.project_suffix}"
+        super().save(*args, **kwargs)
+
     def __str__(self):
-        return self.project_number
+        return self.project_concated_name
 
 
 class Technician(models.Model):
@@ -67,8 +75,12 @@ class Technician(models.Model):
     email_address = models.CharField(max_length=250, blank=True)
     technician_concat_name = models.CharField(max_length=100, blank=True)
 
+    def save(self, *args, **kwargs):
+        self.technician_concat_name = f"{self.first_name} {self.last_name}"
+        super().save(*args, **kwargs)
+
     def __str__(self):
-        return self.last_name
+        return self.technician_concat_name
 
 
 class TestList(models.Model):

@@ -19,7 +19,7 @@
 
         {{ form }}
 
-        <input id="form_submit" type="submit" value="Submit" class="btn btn-success">
+        <input id="form_submit" type="submit" value="Submit" class="btn btn-secondary">
 
     </form>
 
@@ -46,7 +46,7 @@
             <td>{{tech.last_name}}</td>
 
             <td><a href="#" class="btn btn-secondary">Edit - not set up</a></td>
-            <td><a href="" class="btn btn-secondary">Remove - not set up</a></td>
+            <td><a href="{% url 'project_app:delete_technician' tech.id %}" class="btn btn-danger">Remove</a></td>
 
         </tr>
     {% endfor %}
