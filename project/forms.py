@@ -116,6 +116,7 @@ class AddTaskForm(ModelForm):
         model = Task
         fields = ("project",
                   "task_name",
+                  "task_pan",
                   "task_suffix",
                   "task_group",
                   "task_critical_path",
@@ -125,6 +126,7 @@ class AddTaskForm(ModelForm):
         labels = {
             "project": "Project Number",
             "task_name": "Name",
+            "task_pan": "PAN",
             "task_group": "Test Group",
             "task_description": "Description",
             "task_critical_path": "Critical Path No.",
@@ -153,6 +155,7 @@ class FullEditTaskForm(ModelForm):
         model = Task
         fields = ("project",
                   "task_name",
+                  "task_pan",
                   "task_suffix",
                   "task_group",
                   "task_critical_path",
@@ -167,6 +170,7 @@ class FullEditTaskForm(ModelForm):
         labels = {
             "project": "Project Number",
             "task_name": "Name",
+            "task_pan": "PAN",
             "task_group": "Test Group",
             "task_description": "Description",
             "task_critical_path": "Critical Path No.",
@@ -193,48 +197,39 @@ class FullEditTaskForm(ModelForm):
 
         }
 
-class ScheduleEditTask(ModelForm):
+
+class ScheduleEditTaskForm(ModelForm):
     project = forms.ModelChoiceField(queryset=Project.objects.all(), empty_label="Select Project Number")
-    task_group = forms.ModelChoiceField(queryset=TestList.objects.all().order_by('test'), empty_label="Select Test")
+
 
     class Meta:
         model = Task
         fields = ("project",
                   "task_name",
                   "task_suffix",
-                  "task_group",
-                  "task_critical_path",
-                  "task_status",
                   "task_assigned_to",
                   "task_start_date",
                   "task_end_date",
-
+                  "task_shift",
                   )
+
         labels = {
             "project": "Project Number",
             "task_name": "Name",
-            "task_group": "Test Group",
-            "task_description": "Description",
-            "task_critical_path": "Critical Path No.",
-            "task_due_date": "Due Date",
-            "task_created_by": "Created By",
-            "task_creation_date": "Date Created",
+            "task_suffix": "Task Suffix",
             "task_status": "Task Status",
             "task_assigned_to": "Tech Assigned",
             "task_start_date": "Start Date",
             "task_end_date": "Finish Date",
-            "task_created_by": "Created By"
+            "task_shift": "Shift",
+
 
         }
         widgets = {
 
             "task_name": forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Required'}),
-            "task_critical_path": forms.TextInput(attrs={'class': 'form-control'}),
-            "task_description": forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Required'}),
-            'task_due_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            "task_created_by": forms.TextInput(attrs={'class': 'form-control'}),
-            'task_creation_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'task_start_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'task_end_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
 
         }
+

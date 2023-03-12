@@ -1,4 +1,10 @@
-
+<style>
+  .hello-msg {
+    font-size = 18px;
+    color: #fff;
+    margin-right: 20px;
+}
+</style>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="{% url 'home_app:index' %}">Navbar</a>
@@ -26,17 +32,15 @@
           <a class="dropdown-item" href="{% url 'project_app:test_list' %}">Test List</a>
           <a class="dropdown-item" href="{% url 'project_app:technician_list' %}">Technician List</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          {% if request.user.is_superuser %}
+            <a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a>
+          {% endif %}
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
+
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    <span class="hello-msg">Hello, {{ request.user }} </span>
+    <span ><a class="hello-msg" href="{% url 'home_app:logout' %}">Logout</a> </span>
   </div>
 </nav>
 

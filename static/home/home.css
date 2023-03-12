@@ -1,0 +1,26 @@
+#project {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border: 2px solid #b9c3c4;
+    padding: 10px;
+
+}
+
+#task {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border: 2px solid #b9c3c4;
+    padding: 10px;
+}
+.home {
+    border: 2px solid outset;
+    padding: 10px;
+    background-color: #8daad9;
+    border-radius: 5px;
+}
+#quotes {
+    text-align: center;
+    font-style: italic;
+}

@@ -10,7 +10,7 @@
 
 {% block content %}
 
-<h2>Full Edit Task</h2>
+<h2>Schedule Edit Task</h2>
 
 {% if submitted %}
     Your task was submitted was sucessfully
@@ -21,14 +21,14 @@
         {% csrf_token %}
 
         {{ form.as_p }}
+        <br>
 
-        <input type="submit" value="Submit" class="btn btn-success">
+        <input type="submit" value="Submit" class="btn btn-success" name="submit_form">
+        <input type="submit" value="Copy" class="btn btn-secondary" name="copy_task">
 
     </form>
 
 {% endif %}
-
-    <a href="{% url 'project_app:task_pdf' task.id %}" class="btn btn-secondary">Print Pdf</a>
 
 
 {% endblock %}

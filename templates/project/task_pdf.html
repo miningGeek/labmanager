@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        header {
+
+
+    }
+    #description {
+        border: 2px solid;
+
+
+    }
+    #assay {
+        border: 2px solid;
+
+
+    }
+    ul{
+       list-style-type: none;
+    }
+
+    </style>
+<center>
+<h1>Task Request Form</h1>
+</center>
+</head>
+<body>
+<header>
+  <img src="static/images/core-logo.png">
+    <br>
+  <ul>
+      <li>Start Date______{{ task.task_start_date }}</li>
+      <li>End Date_______{{ task.task_end_date }}</li>
+      <li>Project_________Some Nut</li>
+      <li>Project #_______{{ task.project }} </li>
+      <li>PAN # _________{{ task.task_pan }}</li>
+      <li>Task Name______{{ task.task_name }} </li>
+  </ul>
+
+</header>
+__________________________________________________________________________________________________________
+<section id="description" >
+    <center> Description</center>
+    {{ task.task_description }}
+</section>
+<br>
+___________________________________________________________________________________________________________
+<section id="assay">
+    <center>Assay Details</center>
+</section>
+
+</body>
+</html>
+
+
+

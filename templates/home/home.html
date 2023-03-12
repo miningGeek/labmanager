@@ -1,9 +1,58 @@
 {% extends 'base.html' %}
+{% load static %}
+
+ {% block css_files %}
+        <link rel="stylesheet" href="{% static "home/home.css" %}">
+  {% endblock %}
 
 {% block page_title %}
 
 {% endblock %}
 
 {% block content %}
-<h2>Home App Page</h2>
+<br>
+<center><h1>Status Page</h1></center>
+
+<br>
+<br>
+<center><h2>Project Info</h2></center>
+<section id="project">
+    <div class="home">
+        <h3> # Active Projects</h3>
+        <p> Add Count Here</p>
+    </div>
+    <div class="home">
+        <h3> # Completed Projects</h3>
+        <p> Add Count Here</p>
+    </div>
+</section>
+<br>
+<br>
+<center><h2>Task Info</h2></center>
+<section id="task">
+    <div class="home">
+        <h3> # Planning</h3>
+        <p> Add Count Here</p>
+    </div>
+    <div class="home">
+        <h3> # Ready or Inprogress </h3>
+        <p> Add Count Here</p>
+    </div>
+    <div class="home">
+        <h3> # Completed </h3>
+        <p> Add Count Here</p>
+    </div>
+    <div class="home">
+        <h3> # On-hold </h3>
+        <p> Add Count Here</p>
+    </div>
+</section>
+<br>
+<br>
+<section id="quotes">
+    <center><h3>Inspirational quotes</h3></center>
+    <br>
+        {{ quote }}
+
+</section>
 {% endblock %}

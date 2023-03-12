@@ -1,13 +1,18 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 
 from .models import Project, Task, ProjectOwners, Technician, TestList
 from .forms import AddProjectForm, AddProjectOwner, AddTestForm, AddTechnician, AddTaskForm, EditProjectForm,\
-    FullEditTaskForm,EditProjectOwner
+    FullEditTaskForm,EditProjectOwner,ScheduleEditTaskForm
 from django.db.models import Q
-# Create your views here.
+from django.contrib.auth.decorators import login_required
 
+from django.template.loader import get_template
+from io import BytesIO
+from xhtml2pdf import pisa
+from django.views.generic import View
 
+@login_required(login_url='home_app:login')
 def home(request):
     project_list = Project.objects.all().exclude(Q(project_status="Cancelled")| Q(project_status="Completed")).order_by('project_priority','project_number')
     import requests
@@ -45,7 +50,7 @@ def home(request):
     }
     return render(request, 'project/home.html', context)
 
-
+@login_required(login_url='home_app:login')
 def edit_project(request, project_id):
     project = Project.objects.get(pk=project_id)
     form = EditProjectForm(request.POST or None, instance=project)
@@ -59,13 +64,13 @@ def edit_project(request, project_id):
     }
     return render(request, 'project/edit_project.html', context)
 
-
+@login_required(login_url='home_app:login')
 def delete_project(request, project_id):
     project = Project.objects.get(pk=project_id)
     project.delete()
     return redirect('project_app:project_home_page')
 
-
+@login_required(login_url='home_app:login')
 def project_owners(request):
     project_owner_list = ProjectOwners.objects.filter(status_active=True)
     import requests
@@ -102,7 +107,7 @@ def project_owners(request):
     }
     return render(request, 'project/project_owner.html', context)
 
-
+@login_required(login_url='home_app:login')
 def edit_project_owner(request, project_owner_id):
     project_owner = ProjectOwners.objects.get(pk=project_owner_id)
     form = EditProjectOwner(request.POST or None, instance=project_owner)
@@ -114,13 +119,13 @@ def edit_project_owner(request, project_owner_id):
     }
     return render(request, 'project/edit_project_owner.html', context)
 
-
+@login_required(login_url='home_app:login')
 def delete_project_owner(request, project_owner_id):
     project_owner = ProjectOwners.objects.get(pk=project_owner_id)
     project_owner.delete()
     return redirect('project_app:project_owners')
 
-
+@login_required(login_url='home_app:login')
 def test_list(request):
     tests = TestList.objects.all().order_by('test')
     import requests
@@ -140,7 +145,7 @@ def test_list(request):
     }
     return render(request, 'project/test_list.html', context)
 
-
+@login_required(login_url='home_app:login')
 def technician_list(request):
     tech_list = Technician.objects.all()
     import requests
@@ -161,13 +166,13 @@ def technician_list(request):
     }
     return render(request, 'project/technician_list.html', context)
 
-
+@login_required(login_url='home_app:login')
 def delete_technician(request, technician_id):
     tech = Technician.objects.get(pk=technician_id)
     tech.delete()
     return redirect('project_app:technician_list')
 
-
+@login_required(login_url='home_app:login')
 def task_home_page(request):
     task_list = Task.objects.all().exclude(task_status='Completed').order_by('project', 'task_critical_path')
 
@@ -175,7 +180,7 @@ def task_home_page(request):
         'task_list': task_list,
     })
 
-
+@login_required(login_url='home_app:login')
 def add_task(request):
     import requests
     import json
@@ -191,7 +196,7 @@ def add_task(request):
             submitted = True
     return render(request, 'project/add_task.html', {'form': form, 'submitted': submitted})
 
-
+@login_required(login_url='home_app:login')
 def full_edit_task(request, task_id):
     task = Task.objects.get(pk=task_id)
     form = FullEditTaskForm(request.POST or None, instance=task)
@@ -205,6 +210,54 @@ def full_edit_task(request, task_id):
     }
     return render(request, 'project/full_edit_task.html', context)
 
+
+@login_required(login_url='home_app:login')
+def schedule_edit_task(request, task_id):
+    task = Task.objects.get(pk=task_id)
+    if 'submit_form' in request.POST:
+        form = ScheduleEditTaskForm(request.POST or None, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect('schedule_app:schedule_home')
+    if 'copy_task' in request.POST:
+        form = ScheduleEditTaskForm(request.POST or None, instance=task)
+        task.pk = None
+        task.id = None
+        if form.is_valid():
+            form.save()
+            return redirect('schedule_app:schedule_home')
+    form = ScheduleEditTaskForm(request.POST or None, instance=task)
+    context = {
+        "task": task,
+        'form': form,
+    }
+    return render(request, 'project/schedule_edit_task.html', context)
+
+
+def task_pdf(request, task_id):
+    task = Task.objects.get(pk=task_id)
+
+    template_path = 'project/task_pdf.html'
+    context = {
+        'task': task,
+    }
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition']= 'attachment; filename="task.pdf"'
+    template = get_template(template_path)
+    html = template.render(context)
+
+    pisa_status = pisa.CreatePDF(
+        html, dest=response
+    )
+    if pisa_status.err:
+        return HttpResponse("We had some errors <pre>" + html + '</pre>')
+
+    return response
+
+
+
+def test(request):
+    return render(request, 'project/test.html')
 
 
 

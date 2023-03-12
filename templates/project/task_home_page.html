@@ -47,7 +47,7 @@
             <td>{{task.task_assigned_to}}</td>
             <td><a href="" class="btn btn-secondary">Edit - nw</a></td>
             <td><a href="{% url 'project_app:full_edit_task' task.id %}" class="btn btn-secondary">Coordinator Edit</a></td>
-            <td><a href="" class="btn btn-danger">Delete - nw</a></td>
+            <td><a href="{% url 'project_app:task_pdf' task.id %}" class="btn btn-secondary">Create PDF</a></td>
 
 
 
