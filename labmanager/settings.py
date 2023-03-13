@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'home',
     'project',
     'schedule',
-    'storages',
+
 ]
 
 MIDDLEWARE = [
