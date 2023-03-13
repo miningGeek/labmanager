@@ -16,6 +16,10 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
+
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -25,7 +29,8 @@ SECRET_KEY = 'django-insecure-!@%d_v)1i5r^+ny7zs+9k0bz@&@y241r)u$960sl$76$qgah#e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['http://0.0.0.0:8000/']
+#ALLOWED_HOSTS = ['http://0.0.0.0:8000/']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -40,6 +45,7 @@ INSTALLED_APPS = [
     'home',
     'project',
     'schedule',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -86,6 +92,7 @@ DATABASES = {
 }
 
 
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -129,3 +136,5 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#
