@@ -33,7 +33,7 @@ def logoutUser(request):
     return redirect('home_app:login')
 
 
-@login_required(login_url='home_app:login')
+#@login_required(login_url='home_app:login')
 def home(request):
     return render(request, 'home.html')
 
