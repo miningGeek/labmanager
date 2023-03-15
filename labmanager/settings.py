@@ -32,7 +32,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 #ALLOWED_HOSTS = ['http://0.0.0.0:8000/']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.railway.com','127.0.0.1']
 
 
 # Application definition
