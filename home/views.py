@@ -38,7 +38,7 @@ def home(request):
     return render(request, 'home.html')
 
 
-@login_required(login_url='home_app:login')
+#@login_required(login_url='home_app:login')
 def index(request):
     length = len(quotes)
     rand_quote = random.randint(0,length)
