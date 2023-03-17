@@ -4,7 +4,7 @@ quotes = [
   "I like work; it fascinates me. I can sit and look at it for hours. — Jerome K. Jerome",
   "The brain is a wonderful organ; it starts working the moment you get up in the morning and does not stop until you get into the office. — Robert Frost",
   "People say nothing is impossible, but I do nothing every day! — Anonymous",
-"I think Smithers picked me because of my motivational skills. Everyone says they have to work a lot harder when I'm around. — Homer Simpson",
+  "I think Smithers picked me because of my motivational skills. Everyone says they have to work a lot harder when I'm around. — Homer Simpson",
   "I love deadlines. I like the whooshing sound they make as they fly by",
   "Roses are red, violets are blue. I'm schizophrenic, and so am I",
   "There cannot be a crisis next week.  My schedule is already full",
@@ -15,6 +15,10 @@ quotes = [
   "Procrastination is the art of keeping up with yesterday - Don Marquies",
   "I used to jog, but the ice cubes kept falling out of my glass - David Lee Roth",
   "If you haven't got anything nice to say about anybody, come sit next to me - Alice Longworth",
+  "STRESS: The confusion caused when one's mind overides the body's basic need to choke the living crap out of some idiot who desperately needs it",
+  "Of course I talk to myself.  Sometimes I need expert advice",
+  "I'd agree with you, but then we'd both be wrong",
+  "I'm not lazy.  I'm just very relaxed",
 
 
 ]
