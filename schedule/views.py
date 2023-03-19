@@ -7,9 +7,12 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 import plotly.express as px
 import pandas as pd
+
+from home.decorators import unauthenticated_user, allowed_users
 # Create your views here.
 
 @login_required(login_url='home_app:login')
+@allowed_users(allowed_roles=['Coordinator'])
 def schedule_home(request):
 
     data_gantt = {'Tasks': [], 'Start': [], 'Finish': [], 'Resource': []}

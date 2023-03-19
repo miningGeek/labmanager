@@ -6,26 +6,27 @@ from django.contrib.auth import authenticate,login, logout
 
 from .utils import quotes
 from django.contrib.auth.decorators import login_required
+
+from .decorators import unauthenticated_user, allowed_users, admin_only
 # Create your views here.
 
 
+@unauthenticated_user
 def loginPage(request):
-    if request.user.is_authenticated:
-        return redirect('home_app:home')
-    else:
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            password = request.POST.get('password')
 
-            user = authenticate(request, username=username, password=password)
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-            if user is not None:
-                login(request, user)
-                return redirect('home_app:index')
-            else:
-                messages.info(request, 'Username or password is incorrect')
-        context = {}
-        return render(request, 'home/login.html', context)
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('home_app:index')
+        else:
+            messages.info(request, 'Username or password is incorrect')
+    context = {}
+    return render(request, 'home/login.html', context)
 
 
 def logoutUser(request):
@@ -39,6 +40,7 @@ def home(request):
 
 
 @login_required(login_url='home_app:login')
+@admin_only
 def index(request):
     length = len(quotes)
     rand_quote = random.randint(0,length)

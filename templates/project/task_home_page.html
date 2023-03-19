@@ -45,10 +45,13 @@
             <td>{{task.task_start_date}}</td>
             <td>{{task.task_end_date}}</td>
             <td>{{task.task_assigned_to}}</td>
-            <td><a href="" class="btn btn-secondary">Edit - nw</a></td>
-            <td><a href="{% url 'project_app:full_edit_task' task.id %}" class="btn btn-secondary">Coordinator Edit</a></td>
-            <td><a href="{% url 'project_app:task_pdf' task.id %}" class="btn btn-secondary">Create PDF</a></td>
-
+            {% if request.user.groups.all.0.name == 'projectmanager' %}
+                <td><a href="" class="btn btn-secondary">Edit - nw</a></td>
+            {% endif %}
+            {% if request.user.groups.all.0.name == 'Coordinator' %}
+                <td><a href="{% url 'project_app:full_edit_task' task.id %}" class="btn btn-secondary"> Edit </a></td>
+                <td><a href="{% url 'project_app:task_pdf' task.id %}" class="btn btn-secondary">Create PDF</a></td>
+            {% endif %}
 
 
         </tr>

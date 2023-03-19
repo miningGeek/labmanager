@@ -20,24 +20,27 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'project_app:task_home_page' %}">Tasks</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'schedule_app:schedule_home' %}">Schedule</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Settings
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{% url 'project_app:project_owners' %}"> Project Owner List</a>
-          <a class="dropdown-item" href="{% url 'project_app:test_list' %}">Test List</a>
-          <a class="dropdown-item" href="{% url 'project_app:technician_list' %}">Technician List</a>
-          <div class="dropdown-divider"></div>
-          {% if request.user.is_superuser %}
-            <a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a>
-          {% endif %}
-        </div>
-      </li>
-
+      {% if request.user.groups.all.0.name == 'Coordinator' %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'schedule_app:schedule_home' %}">Schedule</a>
+        </li>
+      {% endif %}
+      {% if request.user.groups.all.0.name == 'Coordinator' %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Settings
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'project_app:project_owners' %}"> Project Owner List</a>
+            <a class="dropdown-item" href="{% url 'project_app:test_list' %}">Test List</a>
+            <a class="dropdown-item" href="{% url 'project_app:technician_list' %}">Technician List</a>
+            <div class="dropdown-divider"></div>
+            {% if request.user.is_superuser %}
+              <a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a>
+            {% endif %}
+          </div>
+        </li>
+      {% endif %}
     </ul>
     <span class="hello-msg">Hello, {{ request.user }} </span>
     <span ><a class="hello-msg" href="{% url 'home_app:logout' %}">Logout</a> </span>
