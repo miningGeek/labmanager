@@ -33,9 +33,9 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 #DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-#ALLOWED_HOSTS = ['web-production-8e3ed.up.railway.app/','127.0.0.1']
+#ALLOWED_HOSTS = ['core-labmanager.up.railway.app/','127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['https://web-production-8e3ed.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://core-labmanager.up.railway.app']
 
 # Application definition
 
