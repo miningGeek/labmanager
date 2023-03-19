@@ -64,7 +64,9 @@
             <td>{{project.project_creation_date}}</td>
             <td>{{project.project_status}}</td>
             <td><a href="{% url 'project_app:edit_project' project.id %}" class="btn btn-secondary">Edit</a></td>
-            <td><a href="{% url 'project_app:delete_project' project.id %}" class="btn btn-danger">Delete</a></td>
+            {% if request.user.groups.all.0.name == 'Coordinator' %}
+                <td><a href="{% url 'project_app:delete_project' project.id %}" class="btn btn-danger">Delete</a></td>
+            {% endif %}
 
         </tr>
     {% endfor %}

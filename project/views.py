@@ -205,6 +205,21 @@ def add_task(request):
             submitted = True
     return render(request, 'project/add_task.html', {'form': form, 'submitted': submitted})
 
+
+@login_required(login_url='home_app:login')
+def pm_edit_task(request, task_id):
+    task = Task.objects.get(pk=task_id)
+    form = AddTaskForm(request.POST or None, instance=task)
+    if form.is_valid():
+        form.save()
+        return redirect('project_app:task_home_page')
+    context = {
+        "task": task,
+        'form': form,
+    }
+    return render(request, 'project/pm_edit_task.html', context)
+
+
 @login_required(login_url='home_app:login')
 @allowed_users(allowed_roles=['Coordinator'])
 def full_edit_task(request, task_id):

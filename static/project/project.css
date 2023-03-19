@@ -9,12 +9,14 @@
 
 .form_sort {
     padding-right: 5px;
+
 }
 
 .form_add {
     padding-right: 15px;
     margin-left: 15px;
     width: 75%;
+
 }
 
 h2 {
@@ -28,7 +30,12 @@ h2 {
 .add_task {
     margin-left: 20px;
     width: 75%;
+
 }
 .radio_filter {
     margin-right: 15px;
+}
+.task_form {
+    margin-bottom:150px;
+    padding-bottom: 100px;
 }

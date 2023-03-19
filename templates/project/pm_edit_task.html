@@ -10,8 +10,14 @@
 
 {% block content %}
 
-<h2>Title</h2>
+<h2>PM Edit Task</h2>
 
+<form class="task_form" action="" method=POST>
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" value="Update" class="btn btn-secondary">
+</form>
 
 
 

@@ -128,5 +128,5 @@ def schedule_pm(request):
             "chart": chart,
 
         }
-        return render(request, 'schedule/schedule_home.html', context)
+        return render(request, 'schedule/schedule_pm.html', context)
 
