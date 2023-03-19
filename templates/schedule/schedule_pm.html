@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+ {% block css_files %}
+        <link rel="stylesheet" href="{% static "schedule/schedule.css" %}">
+  {% endblock %}
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<h2>Schedule Project Manager View</h2>
+
+
+{{  chart|safe }}
+
+{% endblock %}
