@@ -9,75 +9,74 @@
 {% endblock %}
 
 {% block content %}
-<center>
-    <h2>Schedule - Coordinator View</h2>
-</center>
+    <center>
+        <h2>Schedule - Coordinator View</h2>
+    </center>
 
-<select id="task-dropdown">
-    {% for task in task_list %}
-        <option value="{{ task.id }}">{{ task.task_name }} {{task.task_suffix}}</option>
-    {% endfor %}
-</select>
+    <select id="task-dropdown">
+        {% for task in task_list %}
+            <option value="{{ task.id }}">{{ task.task_name }} {{task.task_suffix}}</option>
+        {% endfor %}
+    </select>
 
-<a id="task-link" href="#" class="btn btn-secondary">Go to selected task</a>
+    <a id="task-link" href="#" class="btn btn-secondary">Go to selected task</a>
 
-
-
-
-{{  chart|safe }}
-<br>
-<br>
-<center>
-    <h3>Unscheduled Tasks</h3>
-</center>
-<table class="table table-bordered table-hover">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">Project</th>
-        <th scope="col">Name</th>
-        <th scope="col">Suffix</th>
-        <th scope="col">Task Status</th>
-        <th scope="col">Description</th>
-        <th scope="col">Critical Path #</th>
-        <th scope="col">Test Group</th>
-        <th scope="col">Start Date</th>
-        <th scope="col">End Date</th>
-        <th scope="col">Technician</th>
-        <th scope="col"></th>
-        <th scope="col"></th>
-        <th scope="col"></th>
-
-    </tr>
-    </thead>
-    <tbody>
-         {% if unassigned_tasks %}
-    {% for task in unassigned_tasks %}
-
+    {{  chart|safe }}
+    <br>
+    <br>
+    <center>
+        <h3>Unscheduled Tasks</h3>
+    </center>
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
         <tr>
-            <th scope="row">{{task.project}}</th>
-            <td>{{task.task_name}}</td>
-            <td>{{task.task_suffix}}</td>
-            <td>{{task.task_status}}</td>
-            <td>{{task.task_description}}</td>
-            <td>{{task.task_critical_path}}</td>
-            <td>{{task.task_group}}</td>
-            <td>{{task.task_start_date}}</td>
-            <td>{{task.task_end_date}}</td>
-            <td>{{task.task_assigned_to}}</td>
+            <th scope="col">Project</th>
+            <th scope="col">Name</th>
+            <th scope="col">Suffix</th>
+            <th scope="col">Task Status</th>
+            <th scope="col">Description</th>
+            <th scope="col">Critical Path #</th>
+            <th scope="col">Test Group</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Technician</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
 
         </tr>
-    {% endfor %}
-    {% endif %}
+        </thead>
+        <tbody>
+             {% if unassigned_tasks %}
+        {% for task in unassigned_tasks %}
 
-<script>
-    var dropdown = document.getElementById("task-dropdown");
-    var link = document.getElementById("task-link");
+            <tr>
+                <th scope="row">{{task.project}}</th>
+                <td>{{task.task_name}}</td>
+                <td>{{task.task_suffix}}</td>
+                <td>{{task.task_status}}</td>
+                <td>{{task.task_description}}</td>
+                <td>{{task.task_critical_path}}</td>
+                <td>{{task.task_group}}</td>
+                <td>{{task.task_start_date}}</td>
+                <td>{{task.task_end_date}}</td>
+                <td>{{task.task_assigned_to}}</td>
 
-    dropdown.onchange = function() {
-        var selectedTaskId = dropdown.value;
-        link.href = "/schedule_edit_task/" + selectedTaskId;
-    }
-</script>
+            </tr>
+        {% endfor %}
+        {% endif %}
+
+
+    <script>
+        var dropdown = document.getElementById("task-dropdown");
+        var link = document.getElementById("task-link");
+
+        dropdown.onchange = function() {
+            var selectedTaskId = dropdown.value;
+            link.href = "/schedule_edit_task/" + selectedTaskId;
+        }
+    </script>
+
 
 
 {% endblock %}

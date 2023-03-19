@@ -18,12 +18,34 @@
 <center><h2>Project Info</h2></center>
 <section id="project">
     <div class="home">
-        <h3> # Active Projects</h3>
-        <p> Add Count Here</p>
+        <center>
+        <h3> # Planning - Projects</h3>
+        <p> {{ planning_project_count }}</p>
+        </center>
     </div>
     <div class="home">
-        <h3> # Completed Projects</h3>
-        <p> Add Count Here</p>
+        <center>
+        <h3> # Ready - Projects</h3>
+        <p> {{ ready_project_count }}</p>
+        </center>
+    </div>
+    <div class="home">
+        <center>
+        <h3> # Active - Projects</h3>
+        <p> {{ active_project_count }}</p>
+        </center>
+    </div>
+    <div class="home">
+        <center>
+        <h3> # On-Hold - Projects</h3>
+        <p> {{ hold_project_count }}</p>
+        </center>
+    </div>
+    <div class="home">
+        <center>
+        <h3> # Completed - Projects</h3>
+        <p> {{ completed_project_count }}</p>
+        </center>
     </div>
 </section>
 <br>
@@ -31,20 +53,34 @@
 <center><h2>Task Info</h2></center>
 <section id="task">
     <div class="home">
+        <center>
         <h3> # Planning</h3>
-        <p> Add Count Here</p>
+        <p> {{ planning_task_count }}</p>
+        </center>
     </div>
     <div class="home">
-        <h3> # Ready or Inprogress </h3>
-        <p> Add Count Here</p>
+        <center>
+        <h3> # Ready </h3>
+        <p> {{ ready_task_count }}</p>
+        </center>
     </div>
     <div class="home">
+        <center>
+        <h3> # Active </h3>
+        <p> {{ active_task_count }}</p>
+        </center>
+    </div>
+    <div class="home">
+        <center>
         <h3> # Completed </h3>
-        <p> Add Count Here</p>
+        <p> {{ completed_task_count }}</p>
+        </center>
     </div>
     <div class="home">
+        <center>
         <h3> # On-hold </h3>
-        <p> Add Count Here</p>
+        <p> {{ hold_task_count }}</p>
+        </center>
     </div>
 </section>
 <br>

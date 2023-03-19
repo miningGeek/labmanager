@@ -19,6 +19,7 @@ quotes = [
   "Of course I talk to myself.  Sometimes I need expert advice",
   "I'd agree with you, but then we'd both be wrong",
   "I'm not lazy.  I'm just very relaxed",
+  "The problem is, I'm speaking English and you're listening in dumbass",
 
 
 ]
