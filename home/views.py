@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate,login, logout
 
 from .utils import quotes
 from django.contrib.auth.decorators import login_required
-from project.models import Project, Task
+from project.models import Project, Task, ProjectOwners
 from .decorators import unauthenticated_user, allowed_users, admin_only
 # Create your views here.
 
@@ -36,7 +36,34 @@ def logoutUser(request):
 
 @login_required(login_url='home_app:login')
 def home(request):
-    return render(request, 'home.html')
+    try:
+        pm_first_name = request.user.first_name
+        pm_last_name = request.user.last_name
+        pm_name = pm_first_name + ' ' + pm_last_name
+        pm_user = ProjectOwners.objects.get(project_owner_concat_name=pm_name)
+        print(pm_name)
+        planning_project_count = Project.objects.filter(project_owner=pm_user, project_status='Planning' ).count()
+        ready_project_count = Project.objects.filter(project_owner=pm_user, project_status='Ready').count()
+        progress_project_count = Project.objects.filter(project_owner=pm_user, project_status='In-progress').count()
+        hold_project_count = Project.objects.filter(project_owner=pm_user, project_status='On-hold').count()
+        completed_project_count = Project.objects.filter(project_owner=pm_user, project_status='Completed').count()
+        context = {
+            'planning_project_count': planning_project_count,
+            'ready_project_count': ready_project_count,
+            'progress_project_count': progress_project_count,
+            'hold_project_count': hold_project_count,
+            'completed_project_count': completed_project_count,
+
+        }
+        return render(request, 'home.html', context)
+    except ProjectOwners.DoesNotExist as e:
+        pm_first_name = request.user.first_name
+        pm_last_name = request.user.last_name
+        pm_name = pm_first_name + ' ' + pm_last_name
+        print(pm_name)
+
+        return render(request, 'home.html')
+
 
 
 @login_required(login_url='home_app:login')

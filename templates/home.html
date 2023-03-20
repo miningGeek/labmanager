@@ -1,44 +1,50 @@
 {% extends 'base.html' %}
+{% load static %}
+
+ {% block css_files %}
+        <link rel="stylesheet" href="{% static "home/home.css" %}">
+  {% endblock %}
 
 {% block page_title %}
 
 {% endblock %}
 
 {% block content %}
-<h1>Project Manager Home</h1>
-
+<center>
+    <h1>Project Manager Home</h1>
+</center>
 <br>
 <br>
 <center><h2>Project Info</h2></center>
 <section id="project">
     <div class="home">
         <center>
-        <h3> # Planning - Projects</h3>
-        <p> </p>
+        <h3> # Planning </h3>
+        <p> {{ planning_project_count }}</p>
         </center>
     </div>
     <div class="home">
         <center>
-        <h3> # Ready - Projects</h3>
-        <p> </p>
+        <h3> # Ready </h3>
+        <p>{{ ready_project_count }} </p>
         </center>
     </div>
     <div class="home">
         <center>
-        <h3> # Active - Projects</h3>
-        <p> </p>
+        <h3> # Active </h3>
+        <p>{{ progress_project_count }} </p>
         </center>
     </div>
     <div class="home">
         <center>
-        <h3> # On-Hold - Projects</h3>
-        <p> </p>
+        <h3> # On-Hold </h3>
+        <p>{{ hold_project_count }} </p>
         </center>
     </div>
     <div class="home">
         <center>
-        <h3> # Completed - Projects</h3>
-        <p> </p>
+        <h3> # Completed </h3>
+        <p> {{ completed_project_count }} </p>
         </center>
     </div>
 </section>

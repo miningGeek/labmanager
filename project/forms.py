@@ -20,7 +20,7 @@ class AddProjectForm(ModelForm):
             "project_created_by": "Created By",
         }
         widgets = {
-
+            "project_created_by": forms.TextInput(attrs={'readonly': 'readonly'}),
         }
 
 
@@ -42,7 +42,7 @@ class EditProjectForm(ModelForm):
             "project_created_by": "Created By",
         }
         widgets = {
-
+            "project_created_by": forms.TextInput(attrs={'readonly': 'readonly'}),
         }
 
 
@@ -122,6 +122,7 @@ class AddTaskForm(ModelForm):
                   "task_critical_path",
                   "task_due_date",
                   "task_description",
+                  "task_created_by",
                   )
         labels = {
             "project": "Project Number",
@@ -141,7 +142,7 @@ class AddTaskForm(ModelForm):
             "task_critical_path": forms.TextInput(attrs={'class': 'form-control'}),
             "task_description": forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Required'}),
             'task_due_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            "task_created_by": forms.TextInput(attrs={'class': 'form-control'}),
+            "task_created_by": forms.TextInput(attrs={'class': 'form-control','readonly': 'readonly'}),
             'task_creation_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
 
         }
@@ -190,7 +191,7 @@ class FullEditTaskForm(ModelForm):
             "task_critical_path": forms.TextInput(attrs={'class': 'form-control'}),
             "task_description": forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Required'}),
             'task_due_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            "task_created_by": forms.TextInput(attrs={'class': 'form-control'}),
+            "task_created_by": forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly'}),
             'task_creation_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'task_start_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'task_end_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),

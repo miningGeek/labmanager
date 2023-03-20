@@ -36,14 +36,16 @@ def home(request):
             else:
                 project_list = Project.objects.filter(project_status=project_status)
 
+
             form = AddProjectForm
             context = {
-                'project_list': project_list,
-                'form': form,
+                    'project_list': project_list,
+                    'form': form,
             }
-            return render(request, 'project/home.html', context)
+        return render(request, 'project/home.html', context)
     else:
-        form = AddProjectForm
+        user_data = {'project_created_by': request.user.username}
+        form = AddProjectForm(initial=user_data)
 
     context = {
         'project_list': project_list,
@@ -200,7 +202,8 @@ def add_task(request):
             form.save()
             return HttpResponseRedirect('task_home_page?submitted=True')
     else:
-        form = AddTaskForm
+        user_data = {'task_created_by': request.user.username}
+        form = AddTaskForm(initial=user_data)
         if 'submitted' in request.GET:
             submitted = True
     return render(request, 'project/add_task.html', {'form': form, 'submitted': submitted})
@@ -262,10 +265,12 @@ def schedule_edit_task(request, task_id):
 @allowed_users(allowed_roles=['Coordinator'])
 def task_pdf(request, task_id):
     task = Task.objects.get(pk=task_id)
+    pm_name = task.project.project_owner
 
     template_path = 'project/task_pdf.html'
     context = {
         'task': task,
+        'pm_name': pm_name,
     }
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition']= 'attachment; filename="task.pdf"'
