@@ -41,7 +41,6 @@ def home(request):
         pm_last_name = request.user.last_name
         pm_name = pm_first_name + ' ' + pm_last_name
         pm_user = ProjectOwners.objects.get(project_owner_concat_name=pm_name)
-        print(pm_name)
         planning_project_count = Project.objects.filter(project_owner=pm_user, project_status='Planning' ).count()
         ready_project_count = Project.objects.filter(project_owner=pm_user, project_status='Ready').count()
         progress_project_count = Project.objects.filter(project_owner=pm_user, project_status='In-progress').count()
