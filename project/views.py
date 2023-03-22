@@ -219,12 +219,12 @@ def pm_edit_task(request, task_id):
         form.save()
 
         # create a new TaskEdit instance to track the edit
-        edit = TaskEdit(
-            task=task,
-            edited_by=request.user,
+        #edit = TaskEdit(
+            #task=task,
+            #edited_by=request.user,
             #edit_reason=form.cleaned_data['edit_reason']
-        )
-        edit.save()
+        #)
+        #edit.save()
 
         return redirect('project_app:task_home_page')
     context = {
