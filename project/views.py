@@ -222,7 +222,7 @@ def pm_edit_task(request, task_id):
         edit = TaskEdit(
             task=task,
             edited_by=request.user,
-            edit_reason=form.cleaned_data['edit_reason']
+            #edit_reason=form.cleaned_data['edit_reason']
         )
         edit.save()
 
