@@ -36,6 +36,7 @@ def logoutUser(request):
 
 @login_required(login_url='home_app:login')
 def home(request):
+
     try:
         pm_first_name = request.user.first_name
         pm_last_name = request.user.last_name

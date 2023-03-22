@@ -5,6 +5,7 @@ from .models import Project, Task, Technician, ProjectOwners, TestList
 
 
 class AddProjectForm(ModelForm):
+
     class Meta:
         model = Project
         fields = ("project_number",
@@ -22,6 +23,12 @@ class AddProjectForm(ModelForm):
         widgets = {
             "project_created_by": forms.TextInput(attrs={'readonly': 'readonly'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        proj_owner_query = self.fields['project_owner'].queryset
+        proj_owner_query= proj_owner_query.exclude(status_active=False)
+        self.fields['project_owner'].queryset =proj_owner_query
 
 
 class EditProjectForm(ModelForm):
@@ -126,7 +133,7 @@ class AddTaskForm(ModelForm):
                   )
         labels = {
             "project": "Project Number",
-            "task_name": "Name",
+            "task_name": "Task Name",
             "task_pan": "PAN",
             "task_group": "Test Group",
             "task_description": "Description",
@@ -149,8 +156,15 @@ class AddTaskForm(ModelForm):
 
 
 class FullEditTaskForm(ModelForm):
+    REASON_CHOICES = [
+        ('due_date', 'Changed the due date'),
+        ('description', 'Changed the description'),
+        ('assignee', 'Changed the technician'),
+        ('task_status', 'Task/Sample not ready'),
+    ]
     project = forms.ModelChoiceField(queryset=Project.objects.all(), empty_label="Select Project Number")
     task_group = forms.ModelChoiceField(queryset=TestList.objects.all().order_by('test'), empty_label="Select Test")
+    edit_reason = forms.ChoiceField(choices=REASON_CHOICES)
 
     class Meta:
         model = Task
@@ -170,7 +184,7 @@ class FullEditTaskForm(ModelForm):
                   )
         labels = {
             "project": "Project Number",
-            "task_name": "Name",
+            "task_name": "Task Name",
             "task_pan": "PAN",
             "task_group": "Test Group",
             "task_description": "Description",
@@ -197,6 +211,9 @@ class FullEditTaskForm(ModelForm):
             'task_end_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
 
         }
+    def __init__(self,  *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['edit_reason'] = forms.ChoiceField(choices=self.REASON_CHOICES)
 
 
 class ScheduleEditTaskForm(ModelForm):

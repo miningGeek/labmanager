@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 
-from .models import Project, Task, ProjectOwners, Technician, TestList
+from .models import Project, Task, ProjectOwners, Technician, TestList, TaskEdit, AssayDetails
 from .forms import AddProjectForm, AddProjectOwner, AddTestForm, AddTechnician, AddTaskForm, EditProjectForm,\
     FullEditTaskForm,EditProjectOwner,ScheduleEditTaskForm
 from django.db.models import Q
@@ -183,13 +183,15 @@ def delete_technician(request, technician_id):
     tech.delete()
     return redirect('project_app:technician_list')
 
+
 @login_required(login_url='home_app:login')
 def task_home_page(request):
-    task_list = Task.objects.all().exclude(task_status='Completed').order_by('project', 'task_critical_path')
+    task_list = Task.objects.all().exclude(Q(task_status='Completed') | Q(task_status='Cancelled')).order_by('project', 'task_critical_path')
 
     return render(request, 'project/task_home_page.html', {
         'task_list': task_list,
     })
+
 
 @login_required(login_url='home_app:login')
 def add_task(request):
@@ -215,6 +217,15 @@ def pm_edit_task(request, task_id):
     form = AddTaskForm(request.POST or None, instance=task)
     if form.is_valid():
         form.save()
+
+        # create a new TaskEdit instance to track the edit
+        edit = TaskEdit(
+            task=task,
+            edited_by=request.user,
+            edit_reason=form.cleaned_data['edit_reason']
+        )
+        edit.save()
+
         return redirect('project_app:task_home_page')
     context = {
         "task": task,
@@ -289,6 +300,10 @@ def task_pdf(request, task_id):
 
 def test(request):
     return render(request, 'project/test.html')
+
+
+def viewTaskEdit(request):
+    return render(request, 'project/edit_reason_list.html')
 
 
 

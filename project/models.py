@@ -46,6 +46,7 @@ pulverise = [
     ('Other', 'Other'),
 ]
 
+
 class ProjectOwners(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=70)
@@ -105,7 +106,7 @@ class TestList(models.Model):
 class Task(models.Model):
     task_name = models.CharField(max_length=200)
     task_suffix = models.CharField(max_length=10, choices=suffix, default="A")
-    task_description = models.CharField(max_length=5000)
+    task_description = models.TextField()
     task_critical_path = models.IntegerField(default=1000)
     task_group = models.ForeignKey(TestList, on_delete=models.CASCADE, default="Nil")
     task_assigned_to = models.ForeignKey(Technician, on_delete=models.CASCADE, blank=True, null=True)
@@ -126,7 +127,6 @@ class Task(models.Model):
         return self.task_name
 
 
-
 class AssayDetails(models.Model):
     pulverise = models.CharField(max_length=10, choices=pulverise, default='Yes')
     assay_method = models.CharField(max_length=200)
@@ -134,6 +134,20 @@ class AssayDetails(models.Model):
     def __str__(self):
         return self.assay_method
 
+
+class EditReason(models.Model):
+    edit_reason = models.CharField(max_length=200, blank=True)
+
+
+class TaskEdit(models.Model):
+
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    edited_by = models.CharField(max_length=50)
+    edit_date = models.DateTimeField(auto_now_add=True)
+    edit_reason = models.ForeignKey(EditReason, on_delete=models.CASCADE, default="Nil")
+
+    class Meta:
+        ordering = ['-edit_date']
 
 
 
