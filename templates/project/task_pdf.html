@@ -30,14 +30,14 @@
 <header>
   <img src="static/images/core-logo.png">
     <br>
+    <br>
   <ul>
-      <li>Start Date______{{ task.task_start_date }}</li>
-      <li>End Date_______{{ task.task_end_date }}</li>
-      <li>Project_________{{ pm_name }}</li>
-      <li>Project #_______{{ task.project }} </li>
+      <li>Start Date___{{ task.task_start_date }}_______End Date_______{{ task.task_end_date }}</li>
+      <li>Project_________{{ pm_name }}_______Project #_______{{ task.project }}</li>
       <li>PAN # _________{{ task.task_pan }}</li>
       <li><h3>Task Name______{{ task.task_name }}</h3> </li>
   </ul>
+
 
 </header>
 __________________________________________________________________________________________________________
@@ -50,6 +50,11 @@ ________________________________________________________________________________
 <section id="assay">
     <center>Assay Details</center>
 </section>
+    <ul>
+        <li>Pulverise Required _________{{ task.task_pulverise }}</li>
+        <li>Assay Lab Location _________{{ task.task_assay_loc }}</li>
+        <li>Assay Method Details ________{{ task.assay_method }}</li>
+    </ul>
 
 </body>
 </html>

@@ -45,6 +45,11 @@ pulverise = [
     ('No', 'No'),
     ('Other', 'Other'),
 ]
+assay_loc = [
+    ('Internal', 'Internal'),
+    ('External', 'External'),
+    ('Other', 'Other'),
+]
 
 
 class ProjectOwners(models.Model):
@@ -119,20 +124,13 @@ class Task(models.Model):
     task_end_date = models.DateField(blank=True, null=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     task_pan = models.CharField(max_length=30)
-    task_modified_by = models.CharField(max_length=50, blank=True, null=True)
-    task_modified_date = models.DateField(blank=True, null=True)
+    task_pulverise = models.CharField(max_length=10, choices=pulverise, default='No')
+    task_assay_loc = models.CharField(max_length=15, choices=assay_loc, default='Internal')
+    assay_method = models.TextField(blank=True, null=True)
     task_concated_name = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
         return self.task_name
-
-
-class AssayDetails(models.Model):
-    pulverise = models.CharField(max_length=10, choices=pulverise, default='Yes')
-    assay_method = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.assay_method
 
 
 class EditReason(models.Model):

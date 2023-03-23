@@ -146,6 +146,9 @@ class AddTaskForm(ModelForm):
                   "task_critical_path",
                   "task_request_date",
                   "task_description",
+                  "task_pulverise",
+                  "task_assay_loc",
+                  "assay_method",
                   "task_created_by",
                   )
         labels = {
@@ -156,6 +159,9 @@ class AddTaskForm(ModelForm):
             "task_description": "Description",
             "task_critical_path": "Critical Path No.",
             "task_request_date": "Request Date",
+            "task_pulverise": "Pulverise Required",
+            "task_assay_loc": "Assay Lab",
+            "assay_method": "Assay Method Required",
             "task_created_by": "Created By",
             "task_creation_date": "Date Created",
 
@@ -168,7 +174,7 @@ class AddTaskForm(ModelForm):
             'task_request_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             "task_created_by": forms.TextInput(attrs={'class': 'form-control','readonly': 'readonly'}),
             'task_creation_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-
+            "assay_method": forms.Textarea(attrs={'class': 'form-control'}),
         }
 
 
@@ -197,6 +203,9 @@ class FullEditTaskForm(ModelForm):
                   "task_start_date",
                   "task_end_date",
                   "task_description",
+                  "task_pulverise",
+                  "task_assay_loc",
+                  "assay_method",
                   "task_created_by",
                   )
         labels = {
@@ -213,6 +222,9 @@ class FullEditTaskForm(ModelForm):
             "task_assigned_to": "Tech Assigned",
             "task_start_date": "Start Date",
             "task_end_date": "Finish Date",
+            "task_pulverise": "Pulverise Required",
+            "task_assay_loc": "Assay Lab",
+            "assay_method": "Assay Method Required",
 
 
         }
@@ -226,6 +238,7 @@ class FullEditTaskForm(ModelForm):
             'task_creation_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'task_start_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'task_end_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            "assay_method": forms.Textarea(attrs={'class': 'form-control', 'cols':80,'rows': 5}),
 
         }
 

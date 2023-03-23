@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 
-from .models import Project, Task, ProjectOwners, Technician, TestList, TaskEdit, AssayDetails
+from .models import Project, Task, ProjectOwners, Technician, TestList, TaskEdit
 from .forms import AddProjectForm, AddProjectOwner, AddTestForm, AddTechnician, AddTaskForm, EditProjectForm,\
     FullEditTaskForm,EditProjectOwner,ScheduleEditTaskForm,CoordEditProjectForm
 from django.db.models import Q
