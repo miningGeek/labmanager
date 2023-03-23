@@ -11,13 +11,11 @@ class AddProjectForm(ModelForm):
         fields = ("project_number",
                   "project_suffix",
                   "project_owner",
-                  "project_priority",
                   "project_created_by")
         labels = {
             "project_number": "Project No.",
             "project_suffix": "Project Suffix",
             "project_owner": "Owner",
-            "project_priority": "Project Priority",
             "project_created_by": "Created By",
         }
         widgets = {
@@ -32,6 +30,29 @@ class AddProjectForm(ModelForm):
 
 
 class EditProjectForm(ModelForm):
+    class Meta:
+        model = Project
+        fields = ("project_number",
+                  "project_suffix",
+                  "project_owner",
+                  "project_priority",
+                  "project_status",
+                  "project_created_by")
+        labels = {
+            "project_number": "Project No.",
+            "project_suffix": "Project Suffix",
+            "project_owner": "Owner",
+            "project_priority": "Project Priority",
+            "project_status": "Project Status",
+            "project_created_by": "Created By",
+        }
+        widgets = {
+            "project_created_by": forms.TextInput(attrs={'readonly': 'readonly'}),
+            "project_priority": forms.TextInput(attrs={'readonly': 'readonly'}),
+        }
+
+
+class CoordEditProjectForm(ModelForm):
     class Meta:
         model = Project
         fields = ("project_number",
@@ -85,7 +106,6 @@ class EditProjectOwner(ModelForm):
         }
 
 
-
 class AddTestForm(ModelForm):
     class Meta:
         model = TestList
@@ -95,9 +115,6 @@ class AddTestForm(ModelForm):
         widgets = {
             "test": forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Required'}),
         }
-
-
-
 
 
 class AddTechnician(ModelForm):
@@ -127,7 +144,7 @@ class AddTaskForm(ModelForm):
                   "task_suffix",
                   "task_group",
                   "task_critical_path",
-                  "task_due_date",
+                  "task_request_date",
                   "task_description",
                   "task_created_by",
                   )
@@ -138,7 +155,7 @@ class AddTaskForm(ModelForm):
             "task_group": "Test Group",
             "task_description": "Description",
             "task_critical_path": "Critical Path No.",
-            "task_due_date": "Due Date",
+            "task_request_date": "Request Date",
             "task_created_by": "Created By",
             "task_creation_date": "Date Created",
 
@@ -148,7 +165,7 @@ class AddTaskForm(ModelForm):
             "task_name": forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Required'}),
             "task_critical_path": forms.TextInput(attrs={'class': 'form-control'}),
             "task_description": forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Required'}),
-            'task_due_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'task_request_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             "task_created_by": forms.TextInput(attrs={'class': 'form-control','readonly': 'readonly'}),
             'task_creation_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
 
@@ -174,7 +191,7 @@ class FullEditTaskForm(ModelForm):
                   "task_suffix",
                   "task_group",
                   "task_critical_path",
-                  "task_due_date",
+                  "task_request_date",
                   "task_status",
                   "task_assigned_to",
                   "task_start_date",
@@ -189,14 +206,14 @@ class FullEditTaskForm(ModelForm):
             "task_group": "Test Group",
             "task_description": "Description",
             "task_critical_path": "Critical Path No.",
-            "task_due_date": "Due Date",
+            "task_request_date": "Request Date",
             "task_created_by": "Created By",
             "task_creation_date": "Date Created",
             "task_status": "Task Status",
             "task_assigned_to": "Tech Assigned",
             "task_start_date": "Start Date",
             "task_end_date": "Finish Date",
-            "task_created_by": "Created By"
+
 
         }
         widgets = {
@@ -204,13 +221,14 @@ class FullEditTaskForm(ModelForm):
             "task_name": forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Required'}),
             "task_critical_path": forms.TextInput(attrs={'class': 'form-control'}),
             "task_description": forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Required'}),
-            'task_due_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'task_request_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             "task_created_by": forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly'}),
             'task_creation_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'task_start_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'task_end_date': widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
 
         }
+
     def __init__(self,  *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['edit_reason'] = forms.ChoiceField(choices=self.REASON_CHOICES)
@@ -218,7 +236,6 @@ class FullEditTaskForm(ModelForm):
 
 class ScheduleEditTaskForm(ModelForm):
     project = forms.ModelChoiceField(queryset=Project.objects.all(), empty_label="Select Project Number")
-
 
     class Meta:
         model = Task

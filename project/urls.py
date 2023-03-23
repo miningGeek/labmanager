@@ -12,6 +12,7 @@ urlpatterns = [
     path('task_home_page', views.task_home_page, name="task_home_page"),
     path('add_task', views.add_task, name="add_task"),
     path('edit_project/<project_id>', views.edit_project, name="edit_project"),
+    path('coord_edit_project/<project_id>', views.coord_edit_project, name="coord_edit_project"),
     path('delete_project/<project_id>', views.delete_project, name="delete_project"),
     path('pm_edit_task/<task_id>', views.pm_edit_task, name="pm_edit_task"),
     path('full_edit_task/<task_id>', views.full_edit_task, name="full_edit_task"),

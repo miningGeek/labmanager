@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 
 from .models import Project, Task, ProjectOwners, Technician, TestList, TaskEdit, AssayDetails
 from .forms import AddProjectForm, AddProjectOwner, AddTestForm, AddTechnician, AddTaskForm, EditProjectForm,\
-    FullEditTaskForm,EditProjectOwner,ScheduleEditTaskForm
+    FullEditTaskForm,EditProjectOwner,ScheduleEditTaskForm,CoordEditProjectForm
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
@@ -13,6 +13,7 @@ from xhtml2pdf import pisa
 from django.views.generic import View
 
 from home.decorators import unauthenticated_user, allowed_users
+
 
 @login_required(login_url='home_app:login')
 def home(request):
@@ -54,6 +55,7 @@ def home(request):
     }
     return render(request, 'project/home.html', context)
 
+
 @login_required(login_url='home_app:login')
 def edit_project(request, project_id):
     project = Project.objects.get(pk=project_id)
@@ -68,12 +70,30 @@ def edit_project(request, project_id):
     }
     return render(request, 'project/edit_project.html', context)
 
+
+@login_required(login_url='home_app:login')
+@allowed_users(allowed_roles=['Coordinator'])
+def coord_edit_project(request, project_id):
+    project = Project.objects.get(pk=project_id)
+    form = CoordEditProjectForm(request.POST or None, instance=project)
+    if form.is_valid():
+        form.save()
+        return redirect('project_app:project_home_page')
+
+    context = {
+        "project": project,
+        'form': form,
+    }
+    return render(request, 'project/coord_edit_project.html', context)
+
+
 @login_required(login_url='home_app:login')
 @allowed_users(allowed_roles=['Coordinator'])
 def delete_project(request, project_id):
     project = Project.objects.get(pk=project_id)
     project.delete()
     return redirect('project_app:project_home_page')
+
 
 @login_required(login_url='home_app:login')
 @allowed_users(allowed_roles=['Coordinator'])
@@ -113,6 +133,7 @@ def project_owners(request):
     }
     return render(request, 'project/project_owner.html', context)
 
+
 @login_required(login_url='home_app:login')
 @allowed_users(allowed_roles=['Coordinator'])
 def edit_project_owner(request, project_owner_id):
@@ -126,12 +147,14 @@ def edit_project_owner(request, project_owner_id):
     }
     return render(request, 'project/edit_project_owner.html', context)
 
+
 @login_required(login_url='home_app:login')
 @allowed_users(allowed_roles=['Coordinator'])
 def delete_project_owner(request, project_owner_id):
     project_owner = ProjectOwners.objects.get(pk=project_owner_id)
     project_owner.delete()
     return redirect('project_app:project_owners')
+
 
 @login_required(login_url='home_app:login')
 @allowed_users(allowed_roles=['Coordinator'])
@@ -154,6 +177,7 @@ def test_list(request):
     }
     return render(request, 'project/test_list.html', context)
 
+
 @login_required(login_url='home_app:login')
 @allowed_users(allowed_roles=['Coordinator'])
 def technician_list(request):
@@ -175,6 +199,7 @@ def technician_list(request):
 
     }
     return render(request, 'project/technician_list.html', context)
+
 
 @login_required(login_url='home_app:login')
 @allowed_users(allowed_roles=['Coordinator'])

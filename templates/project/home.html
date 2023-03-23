@@ -63,8 +63,11 @@
             <td>{{project.project_priority}}</td>
             <td>{{project.project_creation_date}}</td>
             <td>{{project.project_status}}</td>
+            {% if request.user.groups.all.0.name == 'projectmanager' %}
             <td><a href="{% url 'project_app:edit_project' project.id %}" class="btn btn-secondary">Edit</a></td>
+            {% endif %}
             {% if request.user.groups.all.0.name == 'Coordinator' %}
+                <td><a href="{% url 'project_app:coord_edit_project' project.id %}" class="btn btn-secondary">Edit</a></td>
                 <td><a href="{% url 'project_app:delete_project' project.id %}" class="btn btn-danger">Delete</a></td>
             {% endif %}
 
