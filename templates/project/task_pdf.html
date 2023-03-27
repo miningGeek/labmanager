@@ -42,18 +42,19 @@
 </header>
 __________________________________________________________________________________________________________
 <section id="description" >
-    <center> Description</center>
+    <center><h3>Description</h3> </center>
     {{ task.task_description|linebreaksbr }}
 </section>
 <br>
 ___________________________________________________________________________________________________________
 <section id="assay">
-    <center>Assay Details</center>
+    <center><h3>Assay Details</h3></center>
 </section>
     <ul>
         <li>Pulverise Required _________{{ task.task_pulverise }}</li>
         <li>Assay Lab Location _________{{ task.task_assay_loc }}</li>
-        <li>Assay Method Details ________{{ task.assay_method|linebreaksbr }}</li>
+        <li><h4>Assay Method Details</h4></li>
+            {{ task.assay_method|linebreaksbr }}
     </ul>
 
 </body>

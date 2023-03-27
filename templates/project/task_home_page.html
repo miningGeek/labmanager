@@ -16,6 +16,7 @@
     <thead class="thead-dark">
     <tr>
         <th scope="col">Project</th>
+        <th scope="col">Project Priority</th>
         <th scope="col">Task Name</th>
         <th scope="col">Suffix</th>
         <th scope="col">Task Status</th>
@@ -36,6 +37,7 @@
     {% for task in task_list %}
         <tr>
             <th scope="row">{{task.project}}</th>
+            <td>{{task.project.project_priority}}</td>
             <td>{{task.task_name}}</td>
             <td>{{task.task_suffix}}</td>
             <td>{{task.task_status}}</td>

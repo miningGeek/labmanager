@@ -211,7 +211,7 @@ def delete_technician(request, technician_id):
 
 @login_required(login_url='home_app:login')
 def task_home_page(request):
-    task_list = Task.objects.all().exclude(Q(task_status='Completed') | Q(task_status='Cancelled')).order_by('project', 'task_critical_path')
+    task_list = Task.objects.all().exclude(Q(task_status='Completed') | Q(task_status='Cancelled')).order_by('project__project_priority', 'task_critical_path')
 
     return render(request, 'project/task_home_page.html', {
         'task_list': task_list,

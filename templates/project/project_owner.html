@@ -58,7 +58,8 @@
             <td>{{owner.email_address}}</td>
             <td>{{owner.status_active}}</td>
             <td><a href="{% url 'project_app:edit_project_owner' owner.id %}" class="btn btn-secondary">Edit</a></td>
-            <td><a href="{% url 'project_app:delete_project_owner' owner.id %}" class="btn btn-danger ">Remove</a></td>
+            <td><a href="{% url 'project_app:delete_project_owner' owner.id %}" class="btn btn-secondary">Delete</a></td>
+
 
         </tr>
     {% endfor %}
@@ -68,5 +69,6 @@
     </tbody>
 
 </table>
+
 
 {% endblock %}

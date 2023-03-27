@@ -80,13 +80,13 @@ def schedule_home(request):
 @login_required(login_url='home_app:login')
 def schedule_pm(request):
 
-        data_gantt = {'Tasks': [], 'Start': [], 'Finish': []}
+        data_gantt = {'Tasks': [], 'Start': [], 'Finish': [], 'Resource': []}
         task_list = Task.objects.all().exclude(Q(task_status='Completed') | Q(task_status='Cancelled')).order_by(
             'project', 'task_critical_path', 'task_suffix')
         for task in task_list:
             concat_project_task = f'{task.project} {task.task_name} ({task.task_suffix}) {task.task_shift}'
             data_gantt['Tasks'].append(concat_project_task)
-            #data_gantt['Resource'].append(task.task_assigned_to)
+            data_gantt['Resource'].append(task.project.project_owner)
             data_gantt['Start'].append(task.task_start_date)
             data_gantt['Finish'].append(task.task_end_date)
 
@@ -95,7 +95,7 @@ def schedule_pm(request):
                           x_start="Start",
                           x_end="Finish",
                           y="Tasks",
-                          #color="Resource",
+                          color="Resource",
 
                           labels={
                               'x': 'Date',
