@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 
-from .models import Project, Task, ProjectOwners, Technician, TestList, TaskEdit
+from .models import Project, Task, ProjectOwners, Technician, TestList, TaskEdit, EditReason
 from .forms import AddProjectForm, AddProjectOwner, AddTestForm, AddTechnician, AddTaskForm, EditProjectForm,\
-    FullEditTaskForm,EditProjectOwner,ScheduleEditTaskForm,CoordEditProjectForm
+    FullEditTaskForm,EditProjectOwner,ScheduleEditTaskForm,CoordEditProjectForm, AddEditReasonForm, ReasonFullEditTaskForm
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
@@ -62,6 +62,7 @@ def edit_project(request, project_id):
     form = EditProjectForm(request.POST or None, instance=project)
     if form.is_valid():
         form.save()
+
         return redirect('project_app:project_home_page')
 
     context = {
@@ -244,12 +245,12 @@ def pm_edit_task(request, task_id):
         form.save()
 
         # create a new TaskEdit instance to track the edit
-        #edit = TaskEdit(
-            #task=task,
-            #edited_by=request.user,
-            #edit_reason=form.cleaned_data['edit_reason']
-        #)
-        #edit.save()
+        edit = TaskEdit(
+            task=task,
+            edited_by=request.user,
+            edit_reason=form.cleaned_data['edit_reason']
+        )
+        edit.save()
 
         return redirect('project_app:task_home_page')
     context = {
@@ -263,14 +264,33 @@ def pm_edit_task(request, task_id):
 @allowed_users(allowed_roles=['Coordinator'])
 def full_edit_task(request, task_id):
     task = Task.objects.get(pk=task_id)
-    form = FullEditTaskForm(request.POST or None, instance=task)
-    if form.is_valid():
-        form.save()
-        return redirect('project_app:task_home_page')
 
+    if request.method == 'POST':
+        if task.task_assigned_to:
+            form = ReasonFullEditTaskForm(request.POST, instance=task)
+            if form.is_valid():
+                form.save()
+                edit = TaskEdit(
+                    task=task,
+                    edited_by=request.user,
+                    edit_reason = EditReason.objects.create(edit_reason=form.cleaned_data['edit_reason']),
+
+                )
+                edit.save()
+                return redirect('project_app:task_home_page')
+        else:
+            form = FullEditTaskForm(request.POST, instance=task)
+            if form.is_valid():
+                form.save()
+                return redirect('project_app:task_home_page')
+    else:
+        if task.task_assigned_to:
+            form = ReasonFullEditTaskForm(instance=task)
+        else:
+            form = FullEditTaskForm(instance=task)
     context = {
         "task": task,
-        'form': form,
+        "form": form,
     }
     return render(request, 'project/full_edit_task.html', context)
 
@@ -327,12 +347,55 @@ def test(request):
     return render(request, 'project/test.html')
 
 
+@login_required(login_url='home_app:login')
+@allowed_users(allowed_roles=['Coordinator'])
 def viewTaskEdit(request):
-    return render(request, 'project/edit_reason_list.html')
+    edit_reason_list = EditReason.objects.all()
+
+    if request.method == "POST":
+        form = AddEditReasonForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('edit_reason_list')
+    else:
+        form = AddEditReasonForm
+
+    context = {
+        'edit_reason_list': edit_reason_list,
+        'form': form,
+
+    }
+    return render(request, 'project/edit_reason_list.html', context)
 
 
+@login_required(login_url='home_app:login')
+@allowed_users(allowed_roles=['Coordinator'])
+def delete_edit_reason(request, edit_id):
+    edit_reason = EditReason.objects.get(pk=edit_id)
+    edit_reason.delete()
+    return redirect('project_app:edit_reason_list')
 
 
+@login_required(login_url='home_app:login')
+@allowed_users(allowed_roles=['Coordinator'])
+def modify_edit_reason(request, edit_id):
+    edit_id = EditReason.objects.get(pk=edit_id)
+    form = AddEditReasonForm(request.POST or None, instance=edit_id)
+    if form.is_valid():
+        form.save()
+        return redirect('project_app:edit_reason_list')
+    context = {
+        'form': form,
+    }
+    return render(request, 'project/modify_edit_reason.html', context)
+
+
+def task_edit_track(request):
+    track_edit_list = TaskEdit.objects.all()
+    context = {
+        'track_edit_list': track_edit_list,
+    }
+    return render(request, 'project/task_edit_track.html', context)
 
 
 

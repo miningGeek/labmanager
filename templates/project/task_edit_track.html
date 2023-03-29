@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+ {% block css_files %}
+        <link rel="stylesheet" href="{% static "project/project.css" %}">
+  {% endblock %}
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<h2>Task Edit Tracking</h2>
+
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Edited By</th>
+        <th scope="col">Edit Date</th>
+        <th scope="col">Edit Reason</th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+{% if track_edit_list %}
+    {% for edit in track_edit_list %}
+        <tr>
+            <th scope="row">{{edit.task}}</th>
+            <td>{{edit.edited_by}}</td>
+            <td>{{edit.edit_date}}</td>
+            <td>{{edit.edit_reason}}</td>
+
+        </tr>
+    {% endfor %}
+
+{% endif %}
+
+    </tbody>
+
+</table>
+
+
+
+{% endblock %}

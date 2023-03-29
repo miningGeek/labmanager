@@ -11,8 +11,46 @@
 {% block content %}
 <center><h2>Reason List Page</h2></center>
 
+<form class="form_add" action="" method="POST">
+        {% csrf_token %}
+
+        {{ form }}
+
+        <input id="form_submit" type="submit" value="Submit" class="btn btn-secondary">
+
+</form>
+
+<br/>
+<br/>
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Edit Reason</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
 
 
+
+    </tr>
+    </thead>
+    <tbody>
+{% if edit_reason_list %}
+    {% for edit in edit_reason_list %}
+        <tr>
+            <th scope="row">{{edit.edit_reason}}</th>
+
+            <td><a href="{% url 'project_app:modify_edit_reason' edit.id %}" class="btn btn-secondary">Edit</a></td>
+            <td><a href="{% url 'project_app:delete_edit_reason' edit.id %}" class="btn btn-danger">Remove</a></td>
+
+        </tr>
+    {% endfor %}
+
+{% endif %}
+
+
+    </tbody>
+
+</table>
 
 
 {% endblock %}

@@ -136,13 +136,16 @@ class Task(models.Model):
 class EditReason(models.Model):
     edit_reason = models.CharField(max_length=200, blank=True)
 
+    def __str__(self):
+        return self.edit_reason
+
 
 class TaskEdit(models.Model):
 
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     edited_by = models.CharField(max_length=50)
     edit_date = models.DateTimeField(auto_now_add=True)
-    edit_reason = models.ForeignKey(EditReason, on_delete=models.CASCADE, default="Nil")
+    edit_reason = models.ForeignKey(EditReason, on_delete=models.CASCADE, default="Nil", null=True)
 
     class Meta:
         ordering = ['-edit_date']

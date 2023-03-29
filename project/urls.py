@@ -22,6 +22,9 @@ urlpatterns = [
     path('delete_technician/<technician_id>', views.delete_technician, name="delete_technician"),
     path('task_pdf/<task_id>', views.task_pdf, name='task_pdf'),
     path('edit_reason_list', views.viewTaskEdit, name='edit_reason_list'),
+    path('delete_edit_reason/<edit_id>', views.delete_edit_reason, name='delete_edit_reason'),
+    path('modify_edit_reason/<edit_id>', views.modify_edit_reason, name="modify_edit_reason"),
+    path('task_edit_track', views.task_edit_track, name='task_edit_track'),
     path('test', views.test, name='test'),
 
     ]
