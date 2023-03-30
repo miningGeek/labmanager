@@ -156,7 +156,6 @@ class AddTaskForm(ModelForm):
         fields = ("project",
                   "task_name",
                   "task_pan",
-                  "task_suffix",
                   "task_group",
                   "task_critical_path",
                   "task_request_date",

@@ -80,11 +80,54 @@ def schedule_home(request):
 @login_required(login_url='home_app:login')
 def schedule_pm(request):
 
+    pm_first_name = request.user.first_name
+    pm_last_name = request.user.last_name
+    pm_name = pm_first_name + ' ' + pm_last_name
+
+    data_gantt = {'Tasks': [], 'Start': [], 'Finish': [], 'Resource': []}
+    task_list = Task.objects.filter(project__project_owner__project_owner_concat_name=pm_name).exclude(Q(task_status='Completed') | Q(task_status='Cancelled')).order_by(
+        'task_group','project', 'task_critical_path', 'task_suffix')
+    for task in task_list:
+        concat_project_task = f'{task.project} {task.task_name} ({task.task_suffix}) {task.task_shift}'
+        data_gantt['Tasks'].append(concat_project_task)
+        data_gantt['Resource'].append(task.task_assigned_to)
+        data_gantt['Start'].append(task.task_start_date)
+        data_gantt['Finish'].append(task.task_end_date)
+
+    df = pd.DataFrame(data_gantt)
+    fig = px.timeline(df,
+                          x_start="Start",
+                          x_end="Finish",
+                          y="Tasks",
+                          color="Resource",
+
+                          labels={
+                              'x': 'Date',
+                              'y': 'Tasks',
+                          })
+
+    # set the x axis to show all days/dates instead of skipping -
+    # https://stackoverflow.com/questions/34755707/how-to-show-all-x-axis-tick-values-in-plotly
+    fig.update_xaxes(tickmode='linear', tickformat='%d %b (%a)', tickangle=300)
+    fig.update_yaxes(autorange="reversed")
+
+    chart = fig.to_html()
+
+    context = {
+        "chart": chart,
+
+    }
+    return render(request, 'schedule/schedule_pm.html', context)
+
+
+@login_required(login_url='home_app:login')
+def schedule_global(request):
+
         data_gantt = {'Tasks': [], 'Start': [], 'Finish': [], 'Resource': []}
         task_list = Task.objects.all().exclude(Q(task_status='Completed') | Q(task_status='Cancelled')).order_by(
-            'project', 'task_critical_path', 'task_suffix')
+            'task_group','project', 'task_critical_path', 'task_suffix')
         for task in task_list:
-            concat_project_task = f'{task.project} {task.task_name} ({task.task_suffix}) {task.task_shift}'
+            concat_project_task = f'{task.project} {task.task_name} ({task.task_suffix}) {task.task_shift} '
             data_gantt['Tasks'].append(concat_project_task)
             data_gantt['Resource'].append(task.project.project_owner)
             data_gantt['Start'].append(task.task_start_date)
@@ -128,5 +171,4 @@ def schedule_pm(request):
             "chart": chart,
 
         }
-        return render(request, 'schedule/schedule_pm.html', context)
-
+        return render(request, 'schedule/schedule_global.html', context)

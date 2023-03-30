@@ -28,6 +28,9 @@
       <li class="nav-item">
           <a class="nav-link" href="{% url 'schedule_app:schedule_pm' %}">Schedule PM</a>
         </li>
+      <li class="nav-item">
+          <a class="nav-link" href="{% url 'schedule_app:schedule_global' %}">Schedule Global</a>
+        </li>
       {% if request.user.groups.all.0.name == 'Coordinator' %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

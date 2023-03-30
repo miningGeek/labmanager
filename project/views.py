@@ -245,10 +245,11 @@ def pm_edit_task(request, task_id):
         form.save()
 
         # create a new TaskEdit instance to track the edit
+        edit_reason = EditReason.objects.create(edit_reason='PM Changed')
         edit = TaskEdit(
             task=task,
             edited_by=request.user,
-            edit_reason=form.cleaned_data['edit_reason']
+            edit_reason=edit_reason,
         )
         edit.save()
 

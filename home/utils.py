@@ -20,6 +20,17 @@ quotes = [
   "I'd agree with you, but then we'd both be wrong",
   "I'm not lazy.  I'm just very relaxed",
   "The problem is, I'm speaking English and you're listening in dumbass",
-
-
+  "We don't choose to do something that's hard, we chose to do it because we thought it would be easy",
+  "All you need in this life is ignorance and confidence, and then success is sure - Mark Twain",
+  "If you don't know where you're going, you might wind up someplace else - Yogi Berra",
+  "Don't worry about the world coming to an end today.  It is already tomorrow in Australia - Charles Schulz",
+  "I didn't fail the test.  I just found 100 ways to do it wrong - Benjamin Franklin",
+  "Kiwi scientists have made a breakthrough discovery and discovered 2 new uses for sheep - Meat and Wool",
+  "If at first you don't succeed - try management",
+  "Two things are infinite: the universe and human stupidity; and i'm not sure about the universe",
+  "Sometimes when I close my eyes, I can't see",
+  "Stupidity isn't punishable by death.  If it was, there would be a hell of a population drop",
+  "My back up plan is my original plan but with more alcohol",
+  "Patience: What you have when there are too many witnesses",
+  "I don't understand your specific kind of crazy but I do admire your total commitment to it.",
 ]

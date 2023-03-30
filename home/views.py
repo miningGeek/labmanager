@@ -47,14 +47,28 @@ def home(request):
         progress_project_count = Project.objects.filter(project_owner=pm_user, project_status='In-progress').count()
         hold_project_count = Project.objects.filter(project_owner=pm_user, project_status='On-hold').count()
         completed_project_count = Project.objects.filter(project_owner=pm_user, project_status='Completed').count()
-        context = {
-            'planning_project_count': planning_project_count,
-            'ready_project_count': ready_project_count,
-            'progress_project_count': progress_project_count,
-            'hold_project_count': hold_project_count,
-            'completed_project_count': completed_project_count,
 
-        }
+        if request.user.username == "jenT":
+            length = len(quotes)
+            rand_quote = random.randint(0, length)
+            quote = quotes[rand_quote - 1]
+            context = {
+                'planning_project_count': planning_project_count,
+                'ready_project_count': ready_project_count,
+                'progress_project_count': progress_project_count,
+                'hold_project_count': hold_project_count,
+                'completed_project_count': completed_project_count,
+                'quote': quote,
+            }
+        else:
+            context = {
+                'planning_project_count': planning_project_count,
+                'ready_project_count': ready_project_count,
+                'progress_project_count': progress_project_count,
+                'hold_project_count': hold_project_count,
+                'completed_project_count': completed_project_count,
+
+            }
         return render(request, 'home.html', context)
     except ProjectOwners.DoesNotExist as e:
         pm_first_name = request.user.first_name
