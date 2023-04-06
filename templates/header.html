@@ -37,6 +37,7 @@
             Settings
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'home_app:monthly_report_form' %}"> Monthly Report</a>
             <a class="dropdown-item" href="{% url 'project_app:project_owners' %}"> Project Owner List</a>
             <a class="dropdown-item" href="{% url 'project_app:test_list' %}">Test List</a>
             <a class="dropdown-item" href="{% url 'project_app:technician_list' %}">Technician List</a>

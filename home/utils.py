@@ -33,4 +33,6 @@ quotes = [
   "My back up plan is my original plan but with more alcohol",
   "Patience: What you have when there are too many witnesses",
   "I don't understand your specific kind of crazy but I do admire your total commitment to it.",
+  "I feel the need, the need for expeditious velocity - The Pinky & the Brain",
+  "There is no try, only do and royally f**king up, and you are royally f**king - Robot Chicken"
 ]

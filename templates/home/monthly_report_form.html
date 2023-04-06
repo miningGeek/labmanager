@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+ {% block css_files %}
+        <link rel="stylesheet" href="{% static "home/home.css" %}">
+  {% endblock %}
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<h2>testing monthly report</h2>
+
+<form action="{% url 'home_app:generate_monthly_report' %}" method="get">
+    <label for="month">Month:</label>
+    <select name="month" id="month">
+        <option value="01">January</option>
+        <option value="02">February</option>
+        <option value="03">March</option>
+        <option value="04">April</option>
+        <option value="05">May</option>
+        <option value="06">June</option>
+        <option value="07">July</option>
+        <option value="08">August</option>
+        <option value="09">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+    </select>
+    <label for="year">Year:</label>
+    <input type="number" name="year" id="year" min="2020" max="2030" value="2023">
+    <button type="submit">Generate Report</button>
+</form>
+
+
+
+{% endblock %}
