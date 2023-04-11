@@ -17,7 +17,7 @@ from reportlab.lib.utils import ImageReader
 from datetime import datetime
 # Create your views here.
 
-
+#just adding a note to hopefully push to server for a restart
 @unauthenticated_user
 def loginPage(request):
 
