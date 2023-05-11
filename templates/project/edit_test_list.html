@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+ {% block css_files %}
+        <link rel="stylesheet" href="{% static "project/project.css" %}">
+  {% endblock %}
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<h2>Title</h2>
+
+{% if submitted %}
+    Your task was submitted was sucessfully
+{% else %}
+
+
+    <form class="add_task" action="" method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <input type="submit" value="Submit" class="btn btn-success">
+
+    </form>
+
+{% endif %}
+
+
+
+{% endblock %}

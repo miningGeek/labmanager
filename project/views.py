@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 
 from .models import Project, Task, ProjectOwners, Technician, TestList, TaskEdit, EditReason
-from .forms import AddProjectForm, AddProjectOwner, AddTestForm, AddTechnician, AddTaskForm, EditProjectForm,\
+from .forms import AddProjectForm, AddProjectOwner, AddTestForm, AddTechnician, AddTaskForm, EditTestForm, EditProjectForm,\
     FullEditTaskForm,EditProjectOwner,ScheduleEditTaskForm,CoordEditProjectForm, AddEditReasonForm, ReasonFullEditTaskForm
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
@@ -177,6 +177,28 @@ def test_list(request):
         'form': form,
     }
     return render(request, 'project/test_list.html', context)
+
+
+@login_required(login_url='home_app:login')
+@allowed_users(allowed_roles=['Coordinator'])
+def edit_test_list(request, test_id):
+    test_list = TestList.objects.get(pk=test_id)
+    form = EditTestForm(request.POST or None, instance=test_list)
+    if form.is_valid():
+        form.save()
+        return redirect('project_app:test_list')
+    context = {
+        'form': form,
+    }
+    return render(request, 'project/edit_test_list.html', context)
+
+
+@login_required(login_url='home_app:login')
+@allowed_users(allowed_roles=['Coordinator'])
+def delete_test_list(request, test_id):
+    test_list = TestList.objects.get(pk=test_id)
+    test_list.delete()
+    return redirect('project_app:test_list')
 
 
 @login_required(login_url='home_app:login')

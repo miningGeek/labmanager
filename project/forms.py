@@ -117,6 +117,18 @@ class AddTestForm(ModelForm):
         }
 
 
+class EditTestForm(ModelForm):
+    class Meta:
+        model = TestList
+        fields = (
+            "test",
+        )
+        widgets = {
+            "test": forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Required'}),
+        }
+
+
+
 class AddEditReasonForm(ModelForm):
     class Meta:
         model = EditReason

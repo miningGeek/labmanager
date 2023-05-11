@@ -41,8 +41,8 @@
                 <tr>
                     <th scope="row">{{test.test}}</th>
 
-                    <td><a href="" class="btn btn-secondary">Edit - not set up</a></td>
-                    <td><a href="" class="btn btn-danger">Remove - not set up</a></td>
+                    <td><a href="{% url 'project_app:edit_test_list' test.id %}" class="btn btn-secondary">Edit</a></td>
+                    <td><a href="{% url 'project_app:delete_test_list' test.id %}" class="btn btn-secondary">Remove</a></td>
 
                 </tr>
             {% endfor %}
